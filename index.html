@@ -399,15 +399,16 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
 });
 
 /* ---------------- HOJA 1: RESUMEN ---------------- */
+const TOTAL_VALOR_AJUSTADO_BRUTO = 51362521973.03;
+
 function renderKPIs(data){
   const totalSRC = data.length;
   const totalItems = data.reduce((a,d)=>a+d.n_items,0);
-  const totalValor = data.reduce((a,d)=>a+d.valor_reporte,0);
   const pctEntregadoNacional = data.reduce((a,d)=>a+(d.pct_entregado_items*d.n_items/100),0);
   const kpis = [
     {num: totalSRC, label:'Sujetos de Reparación Colectiva en el corte'},
     {num: (100*pctEntregadoNacional/totalItems).toFixed(1)+'%', label:'Ítems de dotación ya entregados a nivel nacional'},
-    {num: fmtCOP(totalValor), label:'Valor reporte total (cifra oficial del tablero)'},
+    {num: fmtCOP(TOTAL_VALOR_AJUSTADO_BRUTO), label:'Valor total ajustado (cifra oficial del tablero)'},
   ];
   document.getElementById('kpiRow').innerHTML = kpis.map(k=>
     `<div class="kpi"><span class="num">${k.num}</span><div class="label">${k.label}</div></div>`
